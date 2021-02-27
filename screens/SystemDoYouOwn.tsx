@@ -1,6 +1,20 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  Dimensions,
+  StatusBar,
+} from 'react-native'
+import {
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native-gesture-handler'
+
+import { LinearGradient } from 'expo-linear-gradient'
 
 const SystemImages = [
   {
@@ -67,10 +81,27 @@ const SystemImages = [
       'https://static-01.daraz.pk/original/f985d9926d2c9affcdb9b02c5d465763.jpg',
   },
 ]
-
+var { height, width } = Dimensions.get('window')
+const equalWidth = width / 2
 export const SystemDoyouOwn = ({ navigation }: any) => {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView>
+      <LinearGradient
+        colors={[
+          'rgba(255,255,255,0.9)',
+          'rgba(255,255,255,0.5)',
+          'rgba(255,255,255,0.0)',
+        ]}
+        style={{
+          position: 'absolute',
+          top: 0,
+          zIndex: 100,
+          paddingTop: 45,
+          paddingHorizontal: 30,
+          width: width,
+        }}
+      ></LinearGradient>
+      <StatusBar barStyle="dark-content" />
       <View
         style={{
           width: '70%',
@@ -94,7 +125,7 @@ export const SystemDoyouOwn = ({ navigation }: any) => {
           Pick Any System you own
         </Text>
       </View>
-      <View style={styles.AllCard}>
+      {/* <View style={styles.AllCard}>
         {SystemImages.map((url) => (
           <View key={url.id} style={styles.ImagesBox}>
             <TouchableOpacity onPress={() => navigation.navigate('TitlesTag')}>
@@ -116,6 +147,43 @@ export const SystemDoyouOwn = ({ navigation }: any) => {
             </Text>
           </View>
         ))}
+      </View> */}
+      <View style={{ padding: 5, paddingTop: 10, backgroundColor: '#FFF' }}>
+        <FlatList
+          data={SystemImages}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={{ flex: 1, marginHorizontal: 5 }}
+              onPress={() => navigation.navigate('TitlesTag')}
+            >
+              <ImageBackground
+                source={{
+                  uri: item.uri,
+                }}
+                style={styles.imageBack}
+              >
+                <LinearGradient
+                  colors={['rgba(0,0,0,0.5)', 'rgba(0,0,0,0.5)']}
+                  style={styles.linera}
+                >
+                  <Text
+                    numberOfLines={1}
+                    style={{
+                      color: '#FFF',
+                      fontWeight: 'bold',
+                      fontSize: 14,
+                      padding: 10,
+                    }}
+                  >
+                    {item.name.toUpperCase()}
+                  </Text>
+                </LinearGradient>
+              </ImageBackground>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </View>
     </ScrollView>
   )
@@ -123,8 +191,9 @@ export const SystemDoyouOwn = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'black',
     overflow: 'scroll',
+    backgroundColor: '#FFF',
+    flex: 1,
   },
   txtSty: {
     color: 'white',
@@ -150,5 +219,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 15,
     marginTop: 80,
+  },
+  imageBack: {
+    height: 110,
+    marginBottom: 10,
+    marginTop: 5,
+    borderRadius: 10,
+    width: equalWidth,
+  },
+  linera: {
+    height: 110,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })

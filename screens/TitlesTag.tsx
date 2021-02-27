@@ -3,7 +3,7 @@ import React from 'react'
 import { CheckBox, ListItem, Body, Input } from 'native-base'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-export const TitlesTag: React.FC<any> = () => {
+export const TitlesTag: React.FC<any> = ({ navigation }) => {
   const [check, setCheck] = React.useState(false)
   const [data, setData] = React.useState('')
   const [tags, setTags] = React.useState({ tager: 'Many' })
@@ -93,7 +93,10 @@ export const TitlesTag: React.FC<any> = () => {
           }}
         />
       </View>
-      <TouchableOpacity style={styles.btnWelcome}>
+      <TouchableOpacity
+        style={styles.btnWelcome}
+        onPress={() => navigation.navigate('HomeProvider')}
+      >
         <Text
           style={{
             color: 'white',

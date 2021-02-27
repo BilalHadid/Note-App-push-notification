@@ -13,6 +13,9 @@ import Register from './screens/Register'
 import NewProfileProvider from './screens/NewProfileProvider'
 import { SystemDoyouOwn } from './screens/SystemDoYouOwn'
 import { TitlesTag } from './screens/TitlesTag'
+import { HomeProvider } from './screens/HomeProvider'
+import { HomeProvideTitleDetail } from './screens/HomeProvideTitleDetail'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 
 const RootStack = createStackNavigator()
 export default function App() {
@@ -67,6 +70,24 @@ export default function App() {
               }}
               name="TitlesTag"
               component={TitlesTag}
+            />
+            <RootStack.Screen
+              options={{
+                headerShown: false,
+                headerTransparent: true,
+                headerTintColor: 'white',
+              }}
+              name="HomeProvider"
+              component={HomeProvider}
+            />
+            <RootStack.Screen
+              options={{
+                headerShown: false,
+                headerTransparent: true,
+                headerTintColor: 'white',
+              }}
+              name="HomeProvideTitleDetail"
+              component={HomeProvideTitleDetail}
             />
             <RootStack.Screen
               options={{
