@@ -28,10 +28,29 @@ import {
 } from 'native-base'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 // const welcomeSVG = require('../assets/fonts/welcome.svg')
-const img = require('../assets/images/transpLogo.png')
+const img = require('../assets/images/LLogo2.png')
 
 export default function Welcome({ navigation }: any) {
   const [value, onChangeText] = React.useState('UserName')
+  const [email, setEmail] = React.useState('')
+  const [pass, setPass] = React.useState('')
+  const [login, setLogin] = React.useState([
+    { email1: 'Learn about React', pass1: 'hello' },
+  ])
+
+  const submitEmail = (e) => {
+    e.preventDefault()
+    setEmail(e.target.value)
+  }
+  const SubmitPassword = (e) => {
+    e.preventDefault()
+    setPass(e.target.value)
+  }
+  const onSubmit = () => {
+    console.log(submitEmail)
+    console.log(SubmitPassword)
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == 'android' ? 'height' : 'height'}
@@ -56,6 +75,7 @@ export default function Welcome({ navigation }: any) {
             placeholder="Email"
             placeholderTextColor="white"
             keyboardType="email-address"
+            onChange={(e) => setEmail(e.target.toLocaleString)}
             style={{
               borderBottomWidth: 1,
               borderColor: 'white',
@@ -78,6 +98,7 @@ export default function Welcome({ navigation }: any) {
             placeholder="Password"
             placeholderTextColor="white"
             secureTextEntry={true}
+            onChange={(e) => setPass(e.target.toLocaleString)}
             style={{
               borderBottomWidth: 1,
               borderColor: 'white',
@@ -88,8 +109,10 @@ export default function Welcome({ navigation }: any) {
           />
         </View>
         <View style={{ top: 20 }}>
-          <Button style={styles.btnWelcome}>
-            <Text>{'                      '}Login</Text>
+          <Button style={styles.btnWelcome} onPress={onSubmit()}>
+            <Text style={{ fontFamily: 'serif', fontWeight: 'bold' }}>
+              {'                '}Sign In
+            </Text>
           </Button>
         </View>
         <View style={{ top: 50 }}>
@@ -143,7 +166,7 @@ const styles = StyleSheet.create({
     margin: 25,
   },
   btnWelcome: {
-    backgroundColor: 'orange',
+    backgroundColor: 'white',
     color: 'black',
     padding: '10%',
     borderRadius: 25,
@@ -155,7 +178,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   hyperlinkStyle: {
-    color: 'orange',
+    color: 'gray',
   },
   bottomView: {
     width: '50%',

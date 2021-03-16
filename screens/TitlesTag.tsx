@@ -99,7 +99,7 @@ export const TitlesTag: React.FC<any> = ({ navigation }) => {
       >
         <Text
           style={{
-            color: 'white',
+            color: 'black',
             textAlign: 'center',
             fontFamily: 'serif',
             fontSize: 20,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   btnWelcome: {
-    backgroundColor: 'orange',
+    backgroundColor: 'white',
     color: 'black',
     padding: '3%',
     borderRadius: 25,

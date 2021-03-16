@@ -28,7 +28,7 @@ import {
 } from 'native-base'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 // const welcomeSVG = require('../assets/fonts/welcome.svg')
-const img = require('../assets/images/transpLogo.png')
+const img = require('../assets/images/LLogo2.png')
 
 export default function Register({ navigation }: any) {
   const [value, onChangeText] = React.useState('UserName')
@@ -50,6 +50,50 @@ export default function Register({ navigation }: any) {
           >
             Register
           </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginHorizontal: 30,
+            borderWidth: 2,
+            marginTop: 10,
+          }}
+        >
+          <Input
+            placeholder="Your Name"
+            placeholderTextColor="gray"
+            style={{
+              borderBottomWidth: 1,
+              borderColor: 'white',
+              color: 'yellow',
+              fontFamily: 'serif',
+              textTransform: 'lowercase',
+              textDecorationLine: 'none',
+            }}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginHorizontal: 30,
+            borderWidth: 2,
+            marginTop: 10,
+          }}
+        >
+          <Input
+            placeholder="Email"
+            placeholderTextColor="gray"
+            style={{
+              borderBottomWidth: 1,
+              borderColor: 'white',
+              color: 'yellow',
+              fontFamily: 'serif',
+              textTransform: 'lowercase',
+              textDecorationLine: 'none',
+            }}
+          />
         </View>
         <View
           style={{
@@ -87,7 +131,7 @@ export default function Register({ navigation }: any) {
           }}
         >
           <Input
-            placeholder="Email"
+            placeholder="Password"
             placeholderTextColor="gray"
             style={{
               borderBottomWidth: 1,
@@ -102,10 +146,16 @@ export default function Register({ navigation }: any) {
         <View style={{ top: 20 }}>
           <Button
             style={styles.btnWelcome}
-            onPress={() => navigation.navigate('NewProfileProvider')}
+            onPress={() => navigation.navigate('HomeProvider')}
           >
-            <Text style={{ color: 'white' }}>
-              {'        '}Create New Profile
+            <Text
+              style={{
+                color: 'black',
+                fontFamily: 'serif',
+                fontWeight: 'bold',
+              }}
+            >
+              {'               '}Sign Up
             </Text>
           </Button>
         </View>
@@ -159,7 +209,7 @@ const styles = StyleSheet.create({
     margin: 25,
   },
   btnWelcome: {
-    backgroundColor: 'orange',
+    backgroundColor: 'white',
     color: 'black',
     padding: '10%',
     borderRadius: 25,
@@ -171,7 +221,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   hyperlinkStyle: {
-    color: 'orange',
+    color: 'gray',
   },
   bottomView: {
     width: '50%',

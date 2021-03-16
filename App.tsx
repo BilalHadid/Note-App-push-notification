@@ -6,18 +6,51 @@ import useCachedResources from './hooks/useCachedResources'
 import useColorScheme from './hooks/useColorScheme'
 import Navigation from './navigation'
 import Home from './screens/Home'
-import TabOneScreen from './screens/TabOneScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import Welcome from './screens/Welcome'
 import Register from './screens/Register'
-import NewProfileProvider from './screens/NewProfileProvider'
-import { SystemDoyouOwn } from './screens/SystemDoYouOwn'
 import { TitlesTag } from './screens/TitlesTag'
-import { HomeProvider } from './screens/HomeProvider'
-import { HomeProvideTitleDetail } from './screens/HomeProvideTitleDetail'
+import { Note } from './screens/Note'
 import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Settings } from 'react-native'
+import { AddButton } from './screens/AddButton'
 
 const RootStack = createStackNavigator()
+const Drawer = createDrawerNavigator()
+const Tab = createBottomTabNavigator()
+
+const DrawerNavigation = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName
+
+          if (route.name === 'Note') {
+            iconName = focused ? 'home' : 'home-outline'
+          } else if (route.name === 'Setting') {
+            iconName = focused ? 'settings-outline' : 'settings-outline'
+          } else if (route.name === 'Add Note') {
+            iconName = focused ? 'add-outline' : 'add-outline'
+          }
+
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'black',
+        inactiveTintColor: 'gray',
+      }}
+    >
+      <Tab.Screen name="Note" component={Note} />
+      <Tab.Screen name="Add Note" component={AddButton} />
+    </Tab.Navigator>
+  )
+}
+
 export default function App() {
   const isLoadingComplete = useCachedResources()
   const colorScheme = useColorScheme()
@@ -35,33 +68,7 @@ export default function App() {
               name="Home"
               component={Home}
             />
-            <RootStack.Screen
-              options={{
-                headerShown: false,
-                headerTransparent: true,
-                headerTintColor: 'white',
-              }}
-              name="TabOne"
-              component={TabOneScreen}
-            />
-            <RootStack.Screen
-              options={{
-                headerShown: false,
-                headerTransparent: true,
-                headerTintColor: 'white',
-              }}
-              name="NewProfileProvider"
-              component={NewProfileProvider}
-            />
-            <RootStack.Screen
-              options={{
-                headerShown: false,
-                headerTransparent: true,
-                headerTintColor: 'white',
-              }}
-              name="SystemDoYouOwn"
-              component={SystemDoyouOwn}
-            />
+
             <RootStack.Screen
               options={{
                 headerShown: false,
@@ -78,17 +85,9 @@ export default function App() {
                 headerTintColor: 'white',
               }}
               name="HomeProvider"
-              component={HomeProvider}
+              component={DrawerNavigation}
             />
-            <RootStack.Screen
-              options={{
-                headerShown: false,
-                headerTransparent: true,
-                headerTintColor: 'white',
-              }}
-              name="HomeProvideTitleDetail"
-              component={HomeProvideTitleDetail}
-            />
+
             <RootStack.Screen
               options={{
                 headerShown: false,
