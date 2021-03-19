@@ -4,5 +4,6 @@
     "prettier.endOfLine": "auto",
     "prettier.requireConfig": true,
     "prettier.trailingComma": "all",
-    "prettier.quoteProps": "preserve"
+    "prettier.quoteProps": "preserve",
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

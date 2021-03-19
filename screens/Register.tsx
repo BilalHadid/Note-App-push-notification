@@ -32,6 +32,50 @@ const img = require('../assets/images/LLogo2.png')
 
 export default function Register({ navigation }: any) {
   const [value, onChangeText] = React.useState('UserName')
+  const [email, setEmail] = React.useState('')
+  const [pass, setPass] = React.useState('')
+  const [userNmae, setUsername] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [respData, setRespData] = React.useState()
+  const [respStatus, setRespStatus] = React.useState()
+  React.useEffect(() => {
+    async function anyName() {
+      let formData = new FormData()
+      formData.append('username', userNmae)
+      formData.append('password', password)
+      await fetch('https://aic-developments.xyz/v1/createuser.php', {
+        method: 'POST',
+        body: formData,
+      })
+        .then((resp) => resp.json())
+        .then((respJSon) => {
+          console.log(respJSon)
+          console.log(respJSon.messege)
+          setRespData(respJSon.messege)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+    anyName()
+  })
+
+  const submitEmail = () => {
+    const mail = email
+    const passw = pass
+    setUsername(mail)
+    setPassword(passw)
+    // const newLogin: any = { email1: mail, pass1: passw }
+    // setLogin(newLogin)
+    alert(respData)
+    if (respData === 'User already exists,try another username') {
+      navigation.navigate('Welcome')
+    } else if (respData === 'Field is missing') {
+      alert('try again')
+    } else {
+      navigation.navigate('HomeProvider')
+    }
+  }
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == 'android' ? 'height' : 'height'}
@@ -61,8 +105,9 @@ export default function Register({ navigation }: any) {
           }}
         >
           <Input
-            placeholder="Your Name"
+            placeholder="Username"
             placeholderTextColor="gray"
+            onChangeText={(text) => setEmail(text)}
             style={{
               borderBottomWidth: 1,
               borderColor: 'white',
@@ -73,54 +118,7 @@ export default function Register({ navigation }: any) {
             }}
           />
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginHorizontal: 30,
-            borderWidth: 2,
-            marginTop: 10,
-          }}
-        >
-          <Input
-            placeholder="Email"
-            placeholderTextColor="gray"
-            style={{
-              borderBottomWidth: 1,
-              borderColor: 'white',
-              color: 'yellow',
-              fontFamily: 'serif',
-              textTransform: 'lowercase',
-              textDecorationLine: 'none',
-            }}
-          />
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginHorizontal: 30,
-            borderWidth: 2,
-            marginTop: 10,
 
-            overflow: 'visible',
-          }}
-        >
-          <Input
-            placeholder="Phone"
-            keyboardType="phone-pad"
-            autoCompleteType="cc-number"
-            placeholderTextColor="gray"
-            style={{
-              borderBottomWidth: 1,
-              borderColor: 'white',
-              color: 'yellow',
-              textTransform: 'lowercase',
-              textDecorationLine: 'none',
-              fontFamily: 'serif',
-            }}
-          />
-        </View>
         <View
           style={{
             flexDirection: 'row',
@@ -133,6 +131,8 @@ export default function Register({ navigation }: any) {
           <Input
             placeholder="Password"
             placeholderTextColor="gray"
+            secureTextEntry={true}
+            onChangeText={(text) => setPass(text)}
             style={{
               borderBottomWidth: 1,
               borderColor: 'white',
@@ -144,10 +144,7 @@ export default function Register({ navigation }: any) {
           />
         </View>
         <View style={{ top: 20 }}>
-          <Button
-            style={styles.btnWelcome}
-            onPress={() => navigation.navigate('HomeProvider')}
-          >
+          <Button style={styles.btnWelcome} onPress={submitEmail}>
             <Text
               style={{
                 color: 'black',

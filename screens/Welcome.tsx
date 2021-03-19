@@ -34,22 +34,57 @@ export default function Welcome({ navigation }: any) {
   const [value, onChangeText] = React.useState('UserName')
   const [email, setEmail] = React.useState('')
   const [pass, setPass] = React.useState('')
-  const [login, setLogin] = React.useState([
-    { email1: 'Learn about React', pass1: 'hello' },
-  ])
+  const [userNmae, setUsername] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [respData, setRespData] = React.useState()
+  const [respStatus, setRespStatus] = React.useState()
 
-  const submitEmail = (e) => {
-    e.preventDefault()
-    setEmail(e.target.value)
+  React.useEffect(() => {
+    async function anyName() {
+      let formData = new FormData()
+      formData.append('username', userNmae)
+      formData.append('password', password)
+      await fetch('https://aic-developments.xyz/v1/login_user.php', {
+        method: 'POST',
+        body: formData,
+      })
+        .then((resp) => resp.json())
+        .then((respJSon) => {
+          console.log('email', email, 'password', pass)
+
+          console.log(respJSon)
+          setRespData(respJSon.messege)
+          setRespStatus(respJSon.status)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+    anyName()
+  })
+  const submitEmail = async () => {
+    const mail = email
+    const passw = pass
+    await setUsername(mail)
+    await setPassword(passw)
+
+    // const newLogin: any = { email1: mail, pass1: passw }
+    // setLogin(newLogin)
+    if (respStatus === 1) {
+      navigation.navigate('HomeProvider')
+      alert(respData)
+    } else {
+    }
   }
-  const SubmitPassword = (e) => {
-    e.preventDefault()
-    setPass(e.target.value)
-  }
-  const onSubmit = () => {
-    console.log(submitEmail)
-    console.log(SubmitPassword)
-  }
+  // const SubmitPassword = (e) => {
+  //   e.preventDefault()
+  //   setPass(e.target.value)
+  // }
+  // const onSubmit = () => {
+  //   console.log(email)
+  //   console.log(pass)
+  // }
 
   return (
     <KeyboardAvoidingView
@@ -72,10 +107,10 @@ export default function Welcome({ navigation }: any) {
           }}
         >
           <Input
-            placeholder="Email"
+            placeholder="UserName"
             placeholderTextColor="white"
             keyboardType="email-address"
-            onChange={(e) => setEmail(e.target.toLocaleString)}
+            onChangeText={(text) => setEmail(text)}
             style={{
               borderBottomWidth: 1,
               borderColor: 'white',
@@ -98,7 +133,7 @@ export default function Welcome({ navigation }: any) {
             placeholder="Password"
             placeholderTextColor="white"
             secureTextEntry={true}
-            onChange={(e) => setPass(e.target.toLocaleString)}
+            onChangeText={(text) => setPass(text)}
             style={{
               borderBottomWidth: 1,
               borderColor: 'white',
@@ -109,7 +144,7 @@ export default function Welcome({ navigation }: any) {
           />
         </View>
         <View style={{ top: 20 }}>
-          <Button style={styles.btnWelcome} onPress={onSubmit()}>
+          <Button style={styles.btnWelcome} onPress={submitEmail}>
             <Text style={{ fontFamily: 'serif', fontWeight: 'bold' }}>
               {'                '}Sign In
             </Text>

@@ -4,6 +4,12 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as React from 'react';
 
 export default function useCachedResources() {
+  React.useEffect(() => {
+    (async () => await Font.loadAsync({
+      Roboto: require('native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+    }))();
+     }, [])
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
 
   // Load any resources or data that we need prior to rendering the app

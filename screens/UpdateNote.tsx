@@ -23,7 +23,7 @@ var { height, width } = Dimensions.get('window')
 const equalWidth = width / 1.1
 const centerWidth = width / 5
 
-export const AddButton = ({ navigation }) => {
+export const UpdateNote = ({ navigation }) => {
   const [selected2, setSelect2] = React.useState()
   const [respStatus, setRespStatus] = React.useState('')
   const [Note, setNote] = React.useState('')
@@ -38,7 +38,7 @@ export const AddButton = ({ navigation }) => {
       let formData = new FormData()
       formData.append(
         'token',
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJpYXQiOjE2MTYxNDA4MDcsIm5iZiI6MTYxNjE0MDgxNywiZXhwIjoxNjE2MTQ0NDA3LCJhdWQiOiJ1c2VycyIsImRhdGEiOnsiaWQiOjcsInVzZXJuYW1lIjoiYmlsYWxAZ21haWwuY29tIn19.k9pFItbBVluvXF29oUcyfooquZCa376d8sbWiJVDwkMteupxgVHANwr6syTTt9_hwCOPxvchUibSgsO34k7ceA'
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJpYXQiOjE2MTYwOTQ4MjgsIm5iZiI6MTYxNjA5NDgzOCwiZXhwIjoxNjE2MDk4NDI4LCJhdWQiOiJ1c2VycyIsImRhdGEiOnsiaWQiOjcsInVzZXJuYW1lIjoiYmlsYWxAZ21haWwuY29tIn19.wWj9nuRP8woURBVxGEekpbMR80UVYoF3pTlGe097DQKIQcxAFkMVgS63FVgr6GMb_lRZJsBPzPeaOg9UZxwAXg'
       )
       formData.append('note', NoteData)
       formData.append('reminder', remind)
